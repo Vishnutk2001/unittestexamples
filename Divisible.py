@@ -1,3 +1,4 @@
+import sys
 import unittest
 
 def check_divisibleby7(x):
@@ -7,12 +8,15 @@ def check_divisibleby7(x):
         return False
 
 class CheckDivisible(unittest.TestCase):
-    def check_divisible1(self):
+    @unittest.skipIf(sys.platform.startswith("win"), "requires windows os")
+    def test_check_divisible1(self):
         result = check_divisibleby7(14)
         self.assertTrue(result)
 
-    def check_divisible2(self):
-        result = check_divisibleby7(2)
+
+    @unittest.skipUnless(sys.platform.startswith("Linux"),"requires not windows os")
+    def test_check_divisible2(self):
+        result = check_divisibleby7(13)
         self.assertFalse(result)
 
 
